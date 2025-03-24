@@ -1,5 +1,5 @@
 
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
@@ -19,6 +19,16 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onImageUpload, className }) =
   const videoRef = useRef<HTMLVideoElement>(null);
   const [cameraActive, setCameraActive] = useState(false);
   const mediaStreamRef = useRef<MediaStream | null>(null);
+
+  // Clean up media stream when component unmounts
+  useEffect(() => {
+    return () => {
+      if (mediaStreamRef.current) {
+        mediaStreamRef.current.getTracks().forEach(track => track.stop());
+        mediaStreamRef.current = null;
+      }
+    };
+  }, []);
 
   const handleFileUpload = useCallback(
     (file: File) => {
@@ -82,15 +92,23 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onImageUpload, className }) =
     [handleFileUpload]
   );
 
+  const stopCameraStream = useCallback(() => {
+    if (mediaStreamRef.current) {
+      mediaStreamRef.current.getTracks().forEach(track => track.stop());
+      mediaStreamRef.current = null;
+    }
+    
+    if (videoRef.current) {
+      videoRef.current.srcObject = null;
+    }
+    
+    setCameraActive(false);
+  }, []);
+
   const handleCameraClick = useCallback(async () => {
     try {
       if (cameraActive) {
-        // Stop camera
-        if (mediaStreamRef.current) {
-          mediaStreamRef.current.getTracks().forEach(track => track.stop());
-          mediaStreamRef.current = null;
-        }
-        setCameraActive(false);
+        stopCameraStream();
         return;
       }
 
@@ -100,7 +118,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onImageUpload, className }) =
       
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
-        videoRef.current.play();
+        await videoRef.current.play();
       }
       
       setCameraActive(true);
@@ -108,7 +126,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onImageUpload, className }) =
       console.error("Error accessing camera:", error);
       toast.error("Could not access camera. Please check permissions.");
     }
-  }, [cameraActive]);
+  }, [cameraActive, stopCameraStream]);
 
   const handleCapture = useCallback(() => {
     if (!videoRef.current) return;
@@ -132,13 +150,9 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onImageUpload, className }) =
       onImageUpload({ file, preview });
       
       // Stop camera after capture
-      if (mediaStreamRef.current) {
-        mediaStreamRef.current.getTracks().forEach(track => track.stop());
-        mediaStreamRef.current = null;
-      }
-      setCameraActive(false);
+      stopCameraStream();
     }, 'image/jpeg', 0.95);
-  }, [onImageUpload]);
+  }, [onImageUpload, stopCameraStream]);
 
   const handleClearImage = useCallback(() => {
     setPreviewImage(null);
