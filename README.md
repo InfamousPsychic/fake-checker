@@ -1,69 +1,86 @@
-# Welcome to your Lovable project
+# Fake Currency Detection System (Front-End)
 
-## Project info
+This project is a web-based **Fake Currency Detection System** designed to leverage AI technology for analyzing and verifying the authenticity of currency notes. Users can upload images of currency notes for real-time analysis, and the system provides detailed results indicating the likelihood of the note being genuine or counterfeit.
 
-**URL**: https://lovable.dev/projects/d201053a-1250-493f-ab1d-795f35bb55f2
+---
 
-## How can I edit this code?
+## Features
 
-There are several ways of editing your application.
+### **Main Functionality**
+- **Currency Image Upload**: Users can upload images of currency notes in three ways:
+  - Drag-and-drop from their device
+  - Selecting files directly
+  - Capturing images using their camera
+- **AI Analysis**: Advanced algorithms analyze uploaded images for multiple security features:
+  - Watermarks
+  - Serial numbers
+  - Security threads
+  - Microprinting
+- **Authentication Results**: Results include:
+  - Confidence percentages for each detected security feature
+  - A clear indication of whether the currency is genuine or potentially counterfeit
 
-**Use Lovable**
+### **User Interface**
+- **Modern Design**: Features a sleek and responsive layout with:
+  - Gradient background and animated blobs
+  - Glass-morphism cards for an elegant look
+- **Interactive Upload Area**: Drag-and-drop and camera integration make image uploading intuitive
+- **Visual Feedback**: Real-time loading animations and color-coded results:
+  - **Green** for genuine
+  - **Red** for counterfeit
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/d201053a-1250-493f-ab1d-795f35bb55f2) and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+## Technologies Used
 
-**Use your preferred IDE**
+- **React**: Framework for building a dynamic and interactive user interface
+- **TypeScript**: Adds static typing for better maintainability and error prevention
+- **Tailwind CSS**: Utility-first framework for styling
+- **Shadcn UI**: Library for modern, pre-built UI components
+- **Vite**: A fast build tool and development server for a seamless development experience
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+---
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## Installation
 
-Follow these steps:
+Follow these steps to set up the project locally:
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+1. **Clone the Repository**:
+   ```bash
+   git clone <YOUR_GIT_URL>
+   ```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+2. **Navigate to the Project Directory**:
+   ```bash
+   cd <YOUR_PROJECT_NAME>
+   ```
 
-# Step 3: Install the necessary dependencies.
-npm i
+3. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+4. **Start the Development Server**:
+   ```bash
+   npm run dev
+   ```
 
-**Edit a file directly in GitHub**
+The application will be available at `http://localhost:5173`.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+---
 
-**Use GitHub Codespaces**
+## Deployment
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+This project can be deployed to any hosting provider that supports static web apps or JavaScript frameworks.
 
-## What technologies are used for this project?
+### Deployment Steps:
 
-This project is built with .
+1. Build the project:
+   ```bash
+   npm run build
+   ```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+2. Upload the `dist/` folder to your hosting platform (e.g., Netlify, Vercel).
 
-## How can I deploy this project?
+---
 
-Simply open [Lovable](https://lovable.dev/projects/d201053a-1250-493f-ab1d-795f35bb55f2) and click on Share -> Publish.
-
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
